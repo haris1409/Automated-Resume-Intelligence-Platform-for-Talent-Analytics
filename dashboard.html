@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<h1>📊 Analytics Dashboard</h1>
+
+<table border="1">
+<tr>
+    <th>Name</th>
+    <th>Role</th>
+    <th>Score</th>
+</tr>
+
+{% for r in results %}
+<tr>
+    <td>{{r.name}}</td>
+    <td>{{r.role}}</td>
+    <td>{{r.score}}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+<canvas id="chart"></canvas>
+
+<script>
+let labels = [{% for r in results %}"{{r.name}}",{% endfor %}];
+let data = [{% for r in results %}{{r.score}},{% endfor %}];
+
+new Chart(document.getElementById("chart"), {
+    type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Scores',
+            data: data
+        }]
+    }
+});
+</script>
+
+</body>
+</html>
